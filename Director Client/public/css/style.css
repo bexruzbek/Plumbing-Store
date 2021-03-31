@@ -1,0 +1,169 @@
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-track {
+    background: #7397D0;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background:  #222D3E;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #243E29; 
+}
+
+.director-auth-container {
+	width: 100%;
+	height: 100vh;
+}
+
+.products-list, .sellers, .trades, .workers {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+.product {
+	width: 18%;
+}
+
+.seller {
+	width: 23%;
+}
+
+.worker {
+	width: 23%;
+}
+
+.sellers {
+	align-items: flex-start;
+}
+
+.trades {
+	align-items: flex-start;
+}
+
+.trade {
+	width: 23%;
+	background: #fff;
+	margin-bottom: 25px;
+}
+
+.product .card-img-top, .seller .card-img-top {
+	width: auto;
+	max-width: 100%;
+	max-height: 200px;
+}
+
+.product .card-header, .seller .card-header {
+	background: transparent;
+}
+
+.card-text span {
+	font-weight: 500;
+	color: black;
+}
+
+.product-success .card-body {
+	color: #28a745 !important;
+}
+
+.product-danger .card-body {
+	color: #dc3545 !important;
+}
+
+.product-dark .card-body {
+	color: #343a40 !important;
+}
+
+.product-success .buy-product-btn {
+	background-color: #28a745 !important;
+}
+
+.product-danger .buy-product-btn {
+	background-color: #dc3545 !important;
+}
+
+.product-dark .buy-product-btn {
+	background-color: #343a40 !important;
+}
+
+.trade-product {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    padding: 7px;
+    background-color: #768291;
+    margin-bottom: 10px;
+    color: white;
+    font-weight: 500;
+}
+
+.trade-open-products-wrap {
+	position: relative;
+	display: block;
+	font-size: 17px;
+	width: 100%;
+	z-index: 5;	
+}
+
+.trade-open-products {
+	display: inline-block;
+	background: #fff;
+	cursor: pointer;
+	padding-right: 3px;
+	padding-left: 2px;
+    user-select: none;
+}
+
+.trade-open-products-wrap::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	background: #000;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	z-index: -1;
+}
+
+.trades-date {
+	position: relative;
+	font-size: 25px;
+	z-index: 5;	
+}
+
+.trades-date p {
+	display: inline-block;
+	cursor: pointer;
+	padding-right: 5px;
+    user-select: none;
+}
+
+.trades-date::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 2px;
+	background: #D73443;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	z-index: -1;
+}
+
+@media (max-width: 500px) {		
+	.product, .seller, .worker, .trade {
+		width: 70%;
+	}
+
+	.create-product-container, .create-seller-container, .create-worker-container {
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+	}
+}

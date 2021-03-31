@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Market - Direktor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  
+  <div class="bg-dark px-4 py-5 director-auth-container d-none">
+    <div class="col-md-4 mx-auto my-5">
+
+      <form class="bg-light py-3 px-4 rounded shadow-lg director-auth-form d-none">
+          <h2 class="text-center font-weight-light font-italic">Direktor</h2>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" minlength="3" required>
+          </div>
+          <div class="form-group">
+            <label for="password1">1 - Parol</label>
+            <input type="password" class="form-control" id="password1" minlength="6" required>
+          </div>
+          <div class="form-group">
+            <label for="password2">2 - Parol</label>
+            <input type="password" class="form-control" id="password2" minlength="6" required>
+          </div>
+          <p class="text-danger text-center"></p>
+          <button class="btn btn-primary mt-3">Tasdiqlash</button>
+      </form>
+
+      <div class="text-center py-4 director-action-btns d-none">
+        <div>
+          <a href="/?page=edit-products" class="btn btn-primary mb-3">Tovarlar</a>
+        </div>
+        <div>
+          <a href="/?page=create-product" class="btn btn-primary mb-3">Yangi mahsulot</a>
+        </div>
+        <div>
+          <a href="/?page=sellers" class="btn btn-primary mb-3">Sotuvchilar</a>
+        </div>
+        <div>
+          <a href="/?page=add-seller" class="btn btn-primary mb-3">Yangi sotuvchi</a>
+        </div>
+        <div>
+          <a href="/?page=trades&trades=all" class="btn btn-primary mb-3">Savdolar</a>
+        </div>
+        <div>
+          <a href="/?page=workers" class="btn btn-primary mb-3">Ishchilar</a>
+        </div>
+        <div>
+          <a href="/?page=add-worker" class="btn btn-primary mb-3">Yangi ishchi</a>
+        </div>
+        <div>
+          <button class="btn btn-danger mt-5 mb-3" onclick="logoutDirector()">Chiqish</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="director-action-container d-none">
+
+    <div class="edit-products-container d-none">
+      <h1 class="text-center font-weight-light font-italic mt-4">Tovarlar</h1>
+      <div class="p-4 products-list"></div>
+    </div>
+
+    <div class="bg-dark py-5 create-product-container d-none">
+        <form class="col-md-4 mx-auto rounded shadow-lg p-3 bg-light create-product-form">
+            <h2 class="text-center font-weight-light font-italic">Yangi mahsulot</h2>
+            <div class="form-group">
+                <label for="name">Nomi</label>
+                <input type="text" class="form-control" id="name" minlength="1" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Narxi ($)</label>
+                <input type="number" class="form-control" id="price" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="storage">Omborda qancha bor</label>
+                <input type="number" class="form-control" id="storage" min="0" value="0" required>
+            </div>
+            <div class="form-group">
+                <label for="red-norm">Qizil normasi</label>
+                <input type="number" class="form-control" id="red-norm" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="black-norm">Qora normasi</label>
+                <input type="number" class="form-control" id="black-norm" min="0" required>
+            </div>
+            <div class="form-group py-3">
+                <label>Mahsulot rasmi - <a id="product-img-link" href="https://i.ibb.co/Kx9Y0ht/700x400.png" target="_blank">Hozirgi rasm</a> </label>
+                <span class="btn btn-default btn-file">
+                   <input type="file" id="product-image" onchange="fileChange($(this))" accept="image/*">
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="password">Direktor paroli</label>
+                <input type="password" class="form-control" id="password" min="0" required>
+            </div>
+            <button class="btn btn-primary mt-4 submit-btn" type="submit">Tayyor</button> 
+            <p class="text-center text-danger mt-3 form-validation"></p>
+            <p class="text-center text-success mt-3 form-validation-success"></p>
+        </form>
+    </div>
+
+    <div class="sellers-container d-none">
+      <h1 class="text-center font-weight-light font-italic mt-4">Sotuvchilar</h1>
+      <div class="p-4 sellers"></div>
+    </div>
+
+    <div class="bg-dark py-5 create-seller-container d-none">
+        <form class="col-md-4 mx-auto rounded shadow-lg p-3 my-5 bg-light create-seller-form">
+            <h2 class="text-center font-weight-light font-italic">Yangi sotuvchi</h2>
+            <div class="form-group">
+                <label for="seller-name">Username</label>
+                <input type="text" class="form-control" id="seller-name" minlength="1" required>
+            </div>
+            <div class="form-group">
+                <label for="seller-password">Sotuvchining paroli</label>
+                <input type="password" class="form-control" id="seller-password" min="6" required>
+            </div>
+            <div class="form-group py-3">
+                <label>Profil rasmi - <a id="seller-avatar-link" href="https://i.ibb.co/Kx9Y0ht/700x400.png" target="_blank">Hozirgi rasm</a> </label>
+                <span class="btn btn-default btn-file">
+                   <input type="file" id="seller-avatar" onchange="fileChange($(this))" accept="image/*">
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="director-password">Direktor paroli</label>
+                <input type="password" class="form-control" id="director-password" min="0" required>
+            </div>
+            <button class="btn btn-primary mt-4 submit-btn" type="submit">Tayyor</button> 
+            <p class="text-center text-danger mt-3 form-validation"></p>
+            <p class="text-center text-success mt-3 form-validation-success"></p>
+        </form>
+    </div>
+
+    <div class="py-4 px-4 bg-light trades-container d-none">
+      <div class="trade-filters">
+        <form class="col-md-7 mx-auto d-flex justify-content-between align-items-end py-3 trade-filter-form">
+          <div class="col-md-3 form-group mb-0 pl-0">
+            <label for="trade-filter-day">Kun</label>
+            <input type="number" class="form-control" id="trade-filter-day" min="1" max="31">
+          </div>
+          <div class="col-md-3 form-group mb-0 pl-0">
+            <label for="trade-filter-month">Oy</label>
+            <div class="form-group mb-0">
+              <select class="form-control" id="trade-filter-month">
+                <option value="01">Yanvar</option>
+                <option value="02">Fevral</option>
+                <option value="03">Mart</option>
+                <option value="04">Aprel</option>
+                <option value="05">May</option>
+                <option value="06">Iyun</option>
+                <option value="07">Iyul</option>
+                <option value="08">Avgust</option>
+                <option value="09">Sentabr</option>
+                <option value="10">Oktabr</option>
+                <option value="11">Noyabr</option>
+                <option value="12">Dekabr</option>
+                <option value="all">- Hammasi -</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 form-group mb-0 pl-0">
+            <label for="trade-filter-year">Yil</label>
+            <input type="number" class="form-control" id="trade-filter-year" min="2020">
+          </div>
+          <button class="col-md-2 btn btn-primary mr-3" type="submit">Filter</button>
+          <button class="btn btn-danger" type="button" onclick="location.reload()"><i class="fas fa-times"></i></button>
+        </form>
+        <p class="text-center text-danger trade-filter-validation"></p>        
+        <div class="col-md-6 mx-auto form-group">
+            <input type="search" class="form-control search-trades-by-customer-input" minlength="1" placeholder="Xaridor ismi bo'yicha qidiruv..." required>
+        </div>
+      </div>
+      <div class="pt-4 trade-days-wrappper"></div>
+    </div>
+
+    <div class="workers-container d-none">
+      <h1 class="text-center font-weight-light font-italic mt-4">Ishchilar</h1>
+      <div class="p-4 workers"></div>
+    </div>
+
+    <div class="bg-dark py-5 create-worker-container d-none">
+        <form class="col-md-4 mx-auto rounded shadow-lg p-3 my-5 bg-light create-worker-form">
+            <h2 class="text-center font-weight-light font-italic">Yangi ishchi</h2>
+            <div class="form-group">
+                <label for="worker-name">Username</label>
+                <input type="text" class="form-control" id="worker-name" minlength="1" required>
+            </div>
+            <div class="form-group">
+                <label for="worker-password">Sotuvchining paroli</label>
+                <input type="password" class="form-control" id="worker-password" min="6" required>
+            </div>
+            <div class="form-group py-3">
+                <label>Profil rasmi - <a id="worker-avatar-link" href="https://i.ibb.co/Kx9Y0ht/700x400.png" target="_blank">Hozirgi rasm</a> </label>
+                <span class="btn btn-default btn-file">
+                   <input type="file" id="worker-avatar" onchange="fileChange($(this))" accept="image/*">
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="director-password-for-worker">Direktor paroli</label>
+                <input type="password" class="form-control" id="director-password-for-worker" min="0" required>
+            </div>
+            <button class="btn btn-primary mt-4 submit-btn" type="submit">Tayyor</button> 
+            <p class="text-center text-danger mt-3 form-validation"></p>
+            <p class="text-center text-success mt-3 form-validation-success"></p>
+        </form>
+    </div>
+
+  </div>
+
+  <div class="modal fade" id="edit-product-modal" data-product-id="" tabindex="-1" role="dialog" aria-labelledby="edit-product-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edit-product-modal-label">Mahsulot</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="edit-product-form px-2">
+            <div class="form-group">
+                <label for="edit-name">Nomi</label>
+                <input type="text" class="form-control" id="edit-name" minlength="1" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-price">Narxi ($)</label>
+                <input type="number" class="form-control" id="edit-price" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-storage">Ombordagi mahsulotlar soni (qo'shish/ayirish)</label> 
+                <div class="d-flex justify-content-around">
+                  <div class="col-md-3 pl-1 form-group">
+                    <select class="form-control" id="edit-storage-action">
+                      <option value="+">+</option>
+                      <option value="-">-</option>
+                    </select>
+                  </div>
+                  <div class="col-md-9 pr-1">
+                    <input type="number" class="form-control" id="edit-storage" min="0" value="0" required>
+                  </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="edit-red-norm">Qizil normasi</label>
+                <input type="number" class="form-control" id="edit-red-norm" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-black-norm">Qora normasi</label>
+                <input type="number" class="form-control" id="edit-black-norm" min="0" required>
+            </div>
+            <div class="form-group py-3">
+                <label>Mahsulot rasmi - <a id="edit-product-img-link" href="https://i.ibb.co/Kx9Y0ht/700x400.png" target="_blank">Hozirgi rasm</a> </label>
+                <span class="btn btn-default btn-file">
+                   <input type="file" id="edit-product-image" onchange="fileChange($(this))" accept="image/*">
+                </span>
+            </div>
+            <div class="form-group">
+                <label for="edit-password">Direktor paroli</label>
+                <input type="password" class="form-control" id="edit-password" min="0" required>
+            </div>
+            <button class="btn btn-primary mt-4 submit-btn" type="submit">Tayyor</button>
+            <p class="text-center text-danger mt-3 form-validation"></p>
+            <p class="text-center text-success mt-3 form-validation-success"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+ </div>
+
+ <div class="modal fade" id="remove-seller-modal" tabindex="-1" role="dialog" aria-labelledby="remove-seller-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="remove-seller-modal-label">Sotuvchi <span></span>ni olib tashlash</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger">Rostdan ham sotuvchini olib tashlamoqchimisiz? Bu ishni ortga qaytarib bo'lmaydi! Va u qilgan savdolarning sotuvchisi 'Bo'shatilgan' deb kiritiladi! </p>
+        <form class="remove-seller-form">
+            <div class="form-group">
+                <label for="edit-password">Direktor paroli</label>
+                <input type="password" class="form-control" id="remove-seller-director-password" min="0" required>
+            </div>
+            <button class="btn btn-danger mt-4 submit-btn" type="submit">Olib tashlash</button> 
+            <p class="text-center text-danger mt-3 form-validation"></p>
+            <p class="text-center text-success mt-3 form-validation-success"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+
+ <div class="modal fade" id="remove-worker-modal" tabindex="-1" role="dialog" aria-labelledby="remove-worker-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="remove-worker-modal-label">Ishchi <span></span>ni olib tashlash</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger">Rostdan ham ishchini olib tashlamoqchimisiz? Bu ishni ortga qaytarib bo'lmaydi! Va u qilgan savdolarning ishchisi 'Bo'shatilgan' deb kiritiladi! </p>
+        <form class="remove-worker-form">
+            <div class="form-group">
+                <label for="edit-password">Direktor paroli</label>
+                <input type="password" class="form-control" id="remove-worker-director-password" min="0" required>
+            </div>
+            <button class="btn btn-danger mt-4 submit-btn" type="submit">Olib tashlash</button> 
+            <p class="text-center text-danger mt-3 form-validation"></p>
+            <p class="text-center text-success mt-3 form-validation-success"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
+  
+<script src="https://kit.fontawesome.com/392e61d4a3.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w==" crossorigin="anonymous"></script>
+<script src="https://yciw3632t466ep6ekd2dxb8vxdd55k.herokuapp.com/socket.io/socket.io.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
+ 
